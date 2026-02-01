@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 
-const jobDesc = monogoose.Schema({
+const jobDesc = mongoose.Schema({
      userId: mongoose.Schema.Types.ObjectId,
   description: String,
   createdAt: { type: Date, default: Date.now }
