@@ -10,6 +10,7 @@ exports.uploadResume = async (req, res) => {
 
     res.json(newUpload);
   } catch (err) {
+    console.log("couldnt upload!")
     res.status(500).json({ message: err.message });
   }
 };

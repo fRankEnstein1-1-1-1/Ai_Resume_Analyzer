@@ -3,17 +3,17 @@ const mongoose = require("mongoose");
 const resultSchema = new mongoose.Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+    ref: "user",
   },
 
   uploadId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Upload",
+    ref: "upload",
   },
 
   jobId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Job",
+    ref: "job",
   },
 
   matchScore: Number,

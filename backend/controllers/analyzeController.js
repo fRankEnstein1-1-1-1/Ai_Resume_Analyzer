@@ -6,11 +6,16 @@ exports.analyzeResume = async (req, res) => {
   try {
     const { uploadId, jobId } = req.body;
 
+    if (!uploadId || !jobId) {
+      return res.status(400).json({ message: "uploadId and jobId are required" });
+    }
+
     const upload = await Upload.findById(uploadId);
     const job = await Job.findById(jobId);
 
-    if (!upload || !job)
-      return res.status(404).json("Data not found");
+    if (!upload || !job) {
+      return res.status(404).json({ message: "Upload or Job not found" });
+    }
 
     // MOCK AI
     const result = {
@@ -19,16 +24,16 @@ exports.analyzeResume = async (req, res) => {
       missingSkills: ["Docker", "AWS"],
     };
 
-    res.json(result);
+    const saved = await Result.create({
+      userId: req.user.id,
+      uploadId,
+      jobId,
+      ...result,
+    });
 
-     const saved = await Result.create({
-    userId: req.user.id,
-    uploadId,
-    jobId,
-    ...result,
-  });
-   res.json(saved);
+    return res.status(200).json(saved);
   } catch (err) {
-    res.status(500).json(err.message);
+    console.log("couldnt analyze!", err);
+    return res.status(500).json({ message: err.message });
   }
 };
