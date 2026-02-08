@@ -6,6 +6,18 @@ const fs = require("fs");
 const pdfParse = require("pdf-parse");
 const axios = require("axios");
 
+const skillsList = require("../utils/skillsList");
+
+function extractSkills(text) {
+  const lowerText = text.toLowerCase();
+
+  return skillsList.filter(skill =>
+    lowerText.includes(skill.toLowerCase())
+  );
+}
+
+
+
 exports.analyzeResume = async (req, res) => {
   try {
 
@@ -52,6 +64,19 @@ exports.analyzeResume = async (req, res) => {
 
     const jobDescriptionText = job.description || "";
 
+    //skill extraction to find matched and mismatched
+    const resumeSkills = extractSkills(resumeText);
+const jobSkills = extractSkills(jobDescriptionText);
+
+const matchedSkills = jobSkills.filter(skill =>
+  resumeSkills.includes(skill)
+);
+
+const missingSkills = jobSkills.filter(skill =>
+  !resumeSkills.includes(skill)
+);
+
+
     // -------------------------------
     // DEBUG LOGS
     // -------------------------------
@@ -92,7 +117,9 @@ exports.analyzeResume = async (req, res) => {
       userId: req.user.id,
       uploadId,
       jobId,
-      matchScore
+      matchScore,
+      matchedSkills,
+      missingSkills
     });
 
     // -------------------------------
@@ -102,6 +129,8 @@ exports.analyzeResume = async (req, res) => {
     return res.status(200).json({
       //message: "Analysis complete",
       matchScore,
+      matchedSkills,
+      missingSkills,
       //resumePreview: resumeText.substring(0, 500),
       //jobDescription: jobDescriptionText
     });

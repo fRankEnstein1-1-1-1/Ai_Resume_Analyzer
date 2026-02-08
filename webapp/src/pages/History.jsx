@@ -6,10 +6,11 @@ import "./History.css";
 const History = () => {
   const { history, fetchHistory } = useResult();
 
+
   useEffect(() => {
     fetchHistory();
   }, []);
-
+console.log(history)
   return (
     <>
       <Navbar />

@@ -6,7 +6,7 @@ import "./Result.css";
 const Result = () => {
   const { result } = useResult();
   const navigate = useNavigate();
-
+console.log(result)
   // Handle case where result is empty or null
   if (!result) {
     return (
@@ -74,7 +74,7 @@ const Result = () => {
           </div>
 
           {/* Action Button */}
-          <button className="analyze-btn" onClick={() => navigate("/")}>
+          <button className="analyze-btn" onClick={() => navigate("/upload")}>
             Analyze Another
           </button>
         </div>
