@@ -1,0 +1,117 @@
+/* ========== Navbar Container ========== */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 14px 40px;
+
+  background: rgba(79, 70, 229, 0.85);
+  backdrop-filter: blur(12px);
+
+  color: white;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+/* ========== Logo ========== */
+.logo {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+
+/* ========== Links Container ========== */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+
+/* ========== Nav Links ========== */
+.nav-link {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 14px;
+
+  padding: 6px 10px;
+  border-radius: 8px;
+
+  transition: 0.25s;
+}
+
+.nav-link:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+/* Active route highlight */
+.nav-link.active {
+  background: white;
+  color: #4f46e5;
+  font-weight: 600;
+}
+
+
+/* ========== Logout Button ========== */
+.logout-btn {
+  background: linear-gradient(90deg, #ef4444, #dc2626);
+  border: none;
+
+  color: white;
+  font-weight: 600;
+
+  padding: 6px 14px;
+  border-radius: 8px;
+
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.logout-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 18px rgba(220, 38, 38, 0.4);
+}
+
+
+/* ============================= */
+/* 📱 Responsive Navbar */
+/* ============================= */
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 12px 20px;
+  }
+
+  .nav-links {
+    gap: 12px;
+  }
+
+  .nav-link {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 500px) {
+  .logo {
+    font-size: 16px;
+  }
+
+  .nav-links {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .logout-btn {
+    padding: 5px 10px;
+  }
+}

@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
+import "./Dashboard.css";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -8,15 +9,17 @@ const Dashboard = () => {
     <>
       <Navbar />
 
-      <div className="p-10 text-center">
-        <h2 className="text-3xl font-bold mb-6">Welcome 👋</h2>
+      <div className="dashboard">
+        <div className="dashboard-card">
+          <h2 className="dashboard-title">Welcome 👋</h2>
 
-        <button
-          onClick={() => navigate("/upload")}
-          className="bg-blue-600 text-white px-6 py-3 rounded"
-        >
-          Upload Resume
-        </button>
+          <button
+            className="upload-btn"
+            onClick={() => navigate("/upload")}
+          >
+            Upload Resume
+          </button>
+        </div>
       </div>
     </>
   );

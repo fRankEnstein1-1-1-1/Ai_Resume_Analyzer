@@ -1,30 +1,35 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import "./Navbar.css";
 
 const Navbar = () => {
   const { logout } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleLogout = () => {
     logout();
     navigate("/login");
   };
 
+  const isActive = (path) =>
+    location.pathname === path ? "nav-link active" : "nav-link";
+
   return (
-    <div className="bg-blue-600 text-white p-4 flex justify-between">
-      <h1 className="font-bold text-lg">AI Resume Analyzer</h1>
+    <nav className="navbar">
+      <h1 className="logo">AI Resume Analyzer</h1>
 
-      <div className="space-x-4">
-        <Link to="/dashboard">Dashboard</Link>
-        <Link to="/upload">Upload</Link>
-        <Link to="/history">History</Link>
-        <Link to="/result">Results</Link>
+      <div className="nav-links">
+        <Link to="/dashboard" className={isActive("/dashboard")}>Dashboard</Link>
+        <Link to="/upload" className={isActive("/upload")}>Upload</Link>
+        <Link to="/history" className={isActive("/history")}>History</Link>
+        <Link to="/result" className={isActive("/result")}>Results</Link>
 
-        <button onClick={handleLogout} className="bg-red-500 px-3 py-1 rounded">
+        <button onClick={handleLogout} className="logout-btn">
           Logout
         </button>
       </div>
-    </div>
+    </nav>
   );
 };
 
