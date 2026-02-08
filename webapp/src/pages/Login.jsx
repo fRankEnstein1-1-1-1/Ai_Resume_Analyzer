@@ -13,7 +13,7 @@ function Login(){
     const[error,seterror] = useState("")
 
     function handleChange(e){
-        setform({...form,[error.target.name]: e.target.value })
+        setform({...form,[e.target.name]: e.target.value })
     }
    async function handleSubmit(e)
     {
