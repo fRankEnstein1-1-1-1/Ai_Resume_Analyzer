@@ -23,7 +23,7 @@ const Result = () => {
             <p style={{ marginBottom: "20px", color: "#666" }}>
               Please upload your resume and job description to see the analysis.
             </p>
-            <button className="analyze-btn" onClick={() => navigate("/")}>
+            <button className="analyze-btn" onClick={() => navigate("/upload")}>
               Go to Upload
             </button>
           </div>

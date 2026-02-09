@@ -1,9 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
+import { useAuth } from "../context/AuthContext";
 import "./DashBoard.css";
 
 const Dashboard = () => {
   const navigate = useNavigate();
+
+  const {user} = useAuth()
 
   return (
     <>
@@ -11,7 +14,7 @@ const Dashboard = () => {
 
       <div className="dashboard">
         <div className="dashboard-card">
-          <h2 className="dashboard-title">Welcome 👋</h2>
+          <h2 className="dashboard-title"> Welcome {user?.name ? ` ${user.name}` : ""} 👋</h2>
 
           <button
             className="upload-btn"
