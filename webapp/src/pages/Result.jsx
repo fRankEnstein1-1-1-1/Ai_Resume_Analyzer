@@ -1,13 +1,18 @@
 import Navbar from "../components/Navbar";
 import { useResult } from "../context/ResultContext";
-import { useNavigate } from "react-router-dom"; // Added for better UX
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import "./Result.css";
 
 const Result = () => {
   const { result } = useResult();
   const navigate = useNavigate();
-console.log(result)
-  // Handle case where result is empty or null
+
+  const [animatedScore, setAnimatedScore] = useState(0);
+
+  console.log(result);
+
+  // Handle empty result
   if (!result) {
     return (
       <>
@@ -15,7 +20,7 @@ console.log(result)
         <div className="result-page">
           <div className="result-card result-empty">
             <h2 className="result-title">No Result Yet</h2>
-            <p style={{ marginBottom: '20px', color: '#666' }}>
+            <p style={{ marginBottom: "20px", color: "#666" }}>
               Please upload your resume and job description to see the analysis.
             </p>
             <button className="analyze-btn" onClick={() => navigate("/")}>
@@ -27,7 +32,47 @@ console.log(result)
     );
   }
 
-  const { matchScore, matchedSkills = [], missingSkills = [] } = result;
+  const { matchScore = 0, matchedSkills = [], missingSkills = [] } = result;
+
+  // Normalize score safely
+  const normalizedScore =
+    matchScore <= 1 ? matchScore * 100 : matchScore;
+
+  const formattedScore = Math.round(normalizedScore);
+
+  // Animate score counting
+  useEffect(() => {
+    let start = 0;
+    const duration = 800;
+    const stepTime = Math.abs(Math.floor(duration / formattedScore));
+
+    const timer = setInterval(() => {
+      start += 1;
+      setAnimatedScore(start);
+
+      if (start >= formattedScore) {
+        clearInterval(timer);
+      }
+    }, stepTime || 10);
+
+    return () => clearInterval(timer);
+  }, [formattedScore]);
+
+  // Score interpretation
+  const getScoreStatus = () => {
+    if (formattedScore >= 90)
+      return { text: "Excellent Match", className: "excellent" };
+
+    if (formattedScore >= 70)
+      return { text: "Strong Match", className: "strong" };
+
+    if (formattedScore >= 50)
+      return { text: "Moderate Match", className: "moderate" };
+
+    return { text: "Needs Improvement", className: "low" };
+  };
+
+  const status = getScoreStatus();
 
   return (
     <>
@@ -38,43 +83,70 @@ console.log(result)
           <h2 className="result-title">Resume Analysis Result</h2>
 
           {/* Score Circle */}
-          {/* Note: We pass the score to the CSS variable --score */}
-          <div 
-            className="score-circle" 
-            style={{ "--score": matchScore }}
+          <div
+            className="score-circle"
+            style={{ "--score": animatedScore }}
           >
-            <span>{matchScore}%</span>
+            <span>{animatedScore}%</span>
           </div>
 
-          {/* Skills Container */}
+          {/* Score Status */}
+          <div className={`score-status ${status.className}`}>
+            {status.text}
+          </div>
+
+          {/* AI Insight */}
+          <div className="ai-insight">
+            {formattedScore >= 80 &&
+              "Your resume aligns strongly with the job requirements. Great work!"}
+
+            {formattedScore >= 60 &&
+              formattedScore < 80 &&
+              "Your resume shows good alignment. Improving missing skills can increase your match score."}
+
+            {formattedScore >= 40 &&
+              formattedScore < 60 &&
+              "Your resume partially matches the role. Consider updating skills and highlighting relevant experience."}
+
+            {formattedScore < 40 &&
+              "Your resume needs improvement to better match this job. Focus on adding required skills and relevant keywords."}
+          </div>
+
+          {/* Skills */}
           <div className="skills-wrapper">
-            {/* Matched Skills */}
+
             <div className="skills-box">
               <h3>Matched Skills</h3>
               <div className="tags success">
                 {matchedSkills.length > 0 ? (
-                  matchedSkills.map((s, i) => <span key={i}>{s}</span>)
+                  matchedSkills.map((s, i) => (
+                    <span key={i}>{s}</span>
+                  ))
                 ) : (
-                  <span style={{ background: 'none', color: '#999' }}>None detected</span>
+                  <span className="empty">None detected</span>
                 )}
               </div>
             </div>
 
-            {/* Missing Skills */}
             <div className="skills-box">
               <h3>Missing Skills</h3>
               <div className="tags danger">
                 {missingSkills.length > 0 ? (
-                  missingSkills.map((s, i) => <span key={i}>{s}</span>)
+                  missingSkills.map((s, i) => (
+                    <span key={i}>{s}</span>
+                  ))
                 ) : (
-                  <span style={{ background: 'none', color: '#999' }}>None detected</span>
+                  <span className="empty">None detected</span>
                 )}
               </div>
             </div>
+
           </div>
 
-          {/* Action Button */}
-          <button className="analyze-btn" onClick={() => navigate("/upload")}>
+          <button
+            className="analyze-btn"
+            onClick={() => navigate("/upload")}
+          >
             Analyze Another
           </button>
         </div>

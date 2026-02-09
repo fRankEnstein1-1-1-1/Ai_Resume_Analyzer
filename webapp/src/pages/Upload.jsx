@@ -12,6 +12,8 @@ const Upload = () => {
 
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [showSamples, setShowSamples] = useState(false);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -53,6 +55,46 @@ const Upload = () => {
               {file ? file.name : "Click to choose PDF or drag it here"}
             </span>
           </label>
+
+<p className="job-hint">
+  Enter a short summary including role title, required skills,
+  qualifications and key responsibilities.
+</p>
+
+<button
+  type="button"
+  className="sample-btn"
+  onClick={() => setShowSamples(true)}
+>
+  View Sample Descriptions
+</button>
+
+{showSamples && (
+  <div className="sample-modal">
+    <div className="sample-content">
+      <h3>Sample Job Descriptions</h3>
+
+      <p>
+        Example 1:
+        React Developer with 1-2 years experience.
+        Skills: React, JavaScript, REST APIs.
+        Bachelor's in Computer Science preferred.
+      </p>
+
+      <p>
+        Example 2:
+        Backend Developer.
+        Skills: Node.js, MongoDB, API design.
+        Responsibilities include building scalable services.
+      </p>
+
+      <button onClick={() => setShowSamples(false)}>
+        Close
+      </button>
+    </div>
+  </div>
+)}
+
 
           <textarea
             className="job-input"
