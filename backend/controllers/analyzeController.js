@@ -101,7 +101,7 @@ const missingSkills = jobSkills.filter(skill =>
         text: combinedText
       },
       {
-        timeout: 10000 // prevent hanging request
+        timeout: 120000 // prevent hanging request
       }
     );
 
