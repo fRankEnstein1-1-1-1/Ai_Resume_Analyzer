@@ -96,7 +96,7 @@ const missingSkills = jobSkills.filter(skill =>
     const combinedText = resumeText + " " + jobDescriptionText;
 
     const aiResponse = await axios.post(
-      "http://localhost:8000/analyze",
+      "https://ai-resume-analyzer-wwbb.onrender.com/analyze",
       {
         text: combinedText
       },
