@@ -110,7 +110,7 @@ ML services are deployed independently and integrated via API communication.
 git clone https://github.com/fRankEnstein1-1-1-1/Ai_Resume_Analyzer.git
 cd Ai_Resume_Analyzer
 
----
+```
 
 ## 👨‍💻 Author
 
