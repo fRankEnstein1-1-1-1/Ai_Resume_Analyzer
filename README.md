@@ -110,6 +110,14 @@ ML services are deployed independently and integrated via API communication.
 git clone https://github.com/fRankEnstein1-1-1-1/Ai_Resume_Analyzer.git
 cd Ai_Resume_Analyzer
 
-Author
+---
 
-Adithya Menon
+## 👨‍💻 Author
+
+**Adithya Menon**
+
+- GitHub: https://github.com/fRankEnstein1-1-1-1
+- Full Stack Developer | MERN | Machine Learning | NLP
+- Open to collaborations and opportunities 🚀
+
+---
